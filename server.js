@@ -22,6 +22,8 @@ app.use(bodyParser.urlencoded({
 // CONTROLLERS
 const userController = require('./controllers/userController.js');
 app.use('/users', userController);
+const homeController = require('./controllers/homeController');
+app.use('/home', homeController);
 
 // THIS WILL BE DELETED
 app.get('/', (req, res) => {
