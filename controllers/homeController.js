@@ -6,9 +6,25 @@ router.get('/', (req, res) => {
 	// so we can send it to the template
 	// remember the session object is available **EVERYWHERE** in the controllers
 	console.log(req.session)
-	res.render('home.ejs', {
-		username: req.session.username
-	})
+	const d = new Date(Date.now());
+
+	// capture the message to send to template
+	const message = req.session.message;
+
+	// clear out the message
+	req.session.message = null;
+
+	if(req.session.loggedIn) {
+		res.render('home.ejs', {
+			username: req.session.username,
+			loginDate: d.toLocaleTimeString('en-us'),
+			message: message
+		})	
+	} else {
+		res.send('DENIED bc you aren\'t logged in')
+	}
+
+
 })
 
 module.exports = router;
