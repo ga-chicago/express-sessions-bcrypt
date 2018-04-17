@@ -1,9 +1,23 @@
 const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser')
 const app = express();
 const PORT = 3000;
 
+
 //DB
 require('./db/db')
+
+// MIDDLEWARE
+app.use(session({
+	secret: 'help my dog keeps shedding', // used to encrypt cookie, make up a phrase, CAREFUL  U DONT GET HACKED
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+
 
 // CONTROLLERS
 const userController = require('./controllers/userController.js');
