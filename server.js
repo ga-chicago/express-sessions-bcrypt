@@ -11,8 +11,8 @@ require('./db/db')
 // MIDDLEWARE
 app.use(session({
 	secret: 'help my dog keeps shedding', // used to encrypt cookie, make up a phrase, CAREFUL  U DONT GET HACKED
-	resave: false,
-	saveUninitialized: false
+	resave: false, // do not update unless the session object is changed
+	saveUninitialized: false // it is illegal to store cookies in a user's browser until they log in
 }));
 app.use(bodyParser.urlencoded({
 	extended: false
