@@ -32,6 +32,43 @@ router.get('/register', (req, res) => {
 	res.render('register.ejs');
 })
 
+router.post('/login', (req, res) => {
+
+	// 1. find the user
+	User.findOne( { username: req.body.username}, (err, userFound) => {
+
+		// 2. if there is a user with that username
+		if(userFound) {
+
+			// 3. compare passwords -- this is in lieu of something like: "if(password === password)"
+			if(bcrypt.compareSync(req.body.password, userFound.password)) {
+				// 4. set up session
+				req.session.username = req.body.username;
+				req.session.loggedIn = true;
+				req.session.message = `Hello, ${req.body.username}, hope you're having a nice day`;
+
+				// 5. send them along
+				res.redirect('/home')
+
+			} 
+			// 3. continued: passwords don't match
+			else {
+				// remember: don't explicitly say whether itw as the username or the password that was no good
+				// use the same message for both.
+				req.session.message = "Incorrect username or password."
+
+				res.redirect('/users/login')
+			}
+			
+		} 
+		// 2. continued. user was not found
+		else {
+			req.session.message = "Incorrect username or password.";
+			res.redirect('/users/login')
+		}
+	})
+})
+
 router.post('/register', (req, res) => {
 
 	// capture password 
