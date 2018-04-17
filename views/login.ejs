@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<% if (message) { -%>
+		<p style="background-color: pink"><%= message %></p>		
+	<% } -%>
+
+	<h3>You can login here.</h3>
+
+	<form action="/users/login" method="POST">
+		<input type="username" name="username" placeholder="username" /><br />
+		<input type="password" name="password" placeholder="password" /><br />
+		<button>Login</button>	
+	</form>
+
+	<p><small>Need an account? <a href="/users/register">Register here</a></small></p>
+
+</body>
+</html>

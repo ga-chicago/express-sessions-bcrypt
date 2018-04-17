@@ -21,7 +21,9 @@ router.get('/', (req, res) => {
 			message: message
 		})	
 	} else {
-		res.send('DENIED bc you aren\'t logged in')
+
+		req.session.message = "You must be logged in to do that"
+		res.redirect('/users/login')
 	}
 
 

@@ -7,6 +7,16 @@ router.get('/', (req, res) => {
 	res.send('User controller')	
 })
 
+router.get('/login', (req, res) => {
+
+	const message = req.session.message;
+	req.session.message = null;
+
+	res.render('login.ejs', {
+		message: message
+	})
+})
+
 router.get('/logout', (req, res) => {
 	req.session.destroy((err) => {
 		if(err) {
