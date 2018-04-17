@@ -6,7 +6,16 @@ router.get('/', (req, res) => {
 	res.send('User controller')	
 })
 
-//
+router.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+		if(err) {
+			console.log("uh oh", err)
+		} else {
+			res.redirect('/users/register')
+		}
+	})	
+})
+
 router.get('/register', (req, res) => {
 	// console.log(req.session, "hey this was logged from within /users/register get route")
 	res.render('register.ejs');
